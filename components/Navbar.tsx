@@ -1,9 +1,13 @@
-import React from "react";
-
+import React, { useState } from "react";
+import MainNav from "./navbar-permissions/mainNavbar";
+import StudentNav from "./navbar-permissions/StudentNavbar";
 const Navbar = () => {
+  const [user, setUser] = useState(true);
   return (
-    <div>
-      <h1>Navbar</h1>
+    <div className="container mx-auto">
+      {/* Unsigned Navbar */}
+      {!user && <MainNav />}
+      {user && <StudentNav />}
     </div>
   );
 };
