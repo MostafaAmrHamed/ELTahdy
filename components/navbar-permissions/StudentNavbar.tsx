@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
 
-const MainNavbar = () => {
+const StudentNavbar = () => {
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState("home");
   return (
@@ -10,12 +10,10 @@ const MainNavbar = () => {
       {/* Desktop Nav */}
       <div className="hidden md:!block">
         <nav className="flex justify-between items-center py-4 px-2 lg:px-3">
-          <div>
-            <button className="flex items-center gap-2 bg-color-4 text-color-1 hover:text-component transition duration-300 ease-in-out font-medium text-2xl py-1 px-3 rounded-md">
-              <FaUserCircle />
-              مصطفي عمرو حامد
-            </button>
-          </div>
+          <button className="flex items-center gap-2 bg-color-4 text-color-1 hover:text-component transition duration-300 ease-in-out font-medium text-2xl py-1 px-3 rounded-md">
+            <FaUserCircle />
+            مصطفي عمرو حامد
+          </button>
           <ul className="flex justify-around gap-2 bg-color-2 w-1/2 text-color-3 font-semibold py-2 rounded-md">
             <li
               className="text-3xl hover:text-color-4 hover:cursor-pointer"
@@ -71,4 +69,4 @@ const MainNavbar = () => {
   );
 };
 
-export default MainNavbar;
+export default StudentNavbar;
