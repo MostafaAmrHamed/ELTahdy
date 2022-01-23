@@ -91,10 +91,20 @@ const StudentNavbar = () => {
         </nav>
         {toggle && (
           <ul className="flex flex-col items-center text-center text-2xl font-semibold text-color-2 bg-color-4 py-2">
-            <li className="border-b-2 border-color-3 w-1/2 py-3 hover:text-cancel transition ease-in-out">
+            <li
+              className="border-b-2 border-color-3 w-1/2 py-3 hover:text-cancel transition ease-in-out"
+              onClick={() => {
+                setToggle(false);
+              }}
+            >
               الصفحة الرئيسية
             </li>
-            <li className="flex gap-2 items-center relative">
+            <li
+              className="flex gap-2 items-center relative"
+              onClick={() => {
+                setToggle(false);
+              }}
+            >
               <h1 className="py-3 hover:text-cancel transition ease-in-out">
                 الامتحانات
               </h1>

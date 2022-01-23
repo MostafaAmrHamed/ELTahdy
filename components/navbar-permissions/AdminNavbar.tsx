@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { BiMenuAltRight } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdArrowDropleft } from "react-icons/io";
 
 const AdminNavbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -201,35 +201,75 @@ const AdminNavbar = () => {
         </nav>
         {toggle && (
           <ul className="flex flex-col text-2xl font-semibold text-color-2 bg-color-4 py-2">
-            <li className="border-b-2 border-color-3 px-2 py-3 hover:text-cancel transition ease-in-out">
+            <li
+              className="border-b-2 border-color-3 px-2 py-3 hover:text-cancel transition ease-in-out"
+              onClick={() => {
+                setToggle(false);
+              }}
+            >
               الصفحة الرئيسية
             </li>
             <li className="border-b-2 border-color-3 px-2 py-3 ">
-              <p className="underline decoration-cancel">الطــلاب</p>
+              الطــلاب
               <ul className="pr-5 font-medium">
-                <li className="hover:text-cancel transition ease-in-out">
+                <li
+                  className="hover:text-cancel transition ease-in-out flex items-center"
+                  onClick={() => {
+                    setToggle(false);
+                  }}
+                >
+                  <IoMdArrowDropleft />
                   إضافة طالب
                 </li>
-                <li className="hover:text-cancel transition ease-in-out">
+                <li
+                  className="hover:text-cancel transition ease-in-out flex items-center"
+                  onClick={() => {
+                    setToggle(false);
+                  }}
+                >
+                  <IoMdArrowDropleft />
                   إيجاد طالب
                 </li>
               </ul>
             </li>
             <li className="px-2 py-3 border-b-2 border-color-3">
-              <p className="underline decoration-cancel">الامتحــانات</p>
+              الامتحــانات
               <ul className="pr-5 font-medium">
-                <li className="hover:text-cancel transition ease-in-out">
+                <li
+                  className="hover:text-cancel transition ease-in-out flex items-center"
+                  onClick={() => {
+                    setToggle(false);
+                  }}
+                >
+                  <IoMdArrowDropleft />
                   إضافة امتحان
                 </li>
-                <li className="hover:text-cancel transition ease-in-out">
+                <li
+                  className="hover:text-cancel transition ease-in-out flex items-center"
+                  onClick={() => {
+                    setToggle(false);
+                  }}
+                >
+                  <IoMdArrowDropleft />
                   بنك الامتحانات
                 </li>
-                <li className="hover:text-cancel transition ease-in-out">
+                <li
+                  className="hover:text-cancel transition ease-in-out flex items-center"
+                  onClick={() => {
+                    setToggle(false);
+                  }}
+                >
+                  <IoMdArrowDropleft />
                   امتحانات تم نشرها
                 </li>
               </ul>
             </li>
-            <li className="px-2 pt-3 hover:text-cancel transition ease-in-out">
+            <li
+              className="px-2 pt-3 hover:text-cancel transition ease-in-out"
+              onClick={() => {
+                setToggle(false);
+              }}
+            >
               احصائيات
             </li>
           </ul>
