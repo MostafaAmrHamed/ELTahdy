@@ -7,7 +7,7 @@ const MainNavbar = () => {
   return (
     <div>
       {/* Desktop Nav */}
-      <div className="hidden md:!block">
+      <div className="container mx-auto hidden md:!block">
         <nav className="flex justify-between items-center py-4 px-2 lg:px-3">
           <div>
             <button className="bg-component text-color-4 hover:bg-transparent hover:ring-color-4 hover:ring-2 transition duration-300 ease-in-out font-semibold text-2xl py-1 px-6 ml-2 rounded-md">
@@ -22,7 +22,7 @@ const MainNavbar = () => {
       </div>
 
       {/* Mobile Nav */}
-      <div className="md:hidden fixed w-full">
+      <div className="md:hidden w-full">
         <nav className="flex justify-between px-5 py-3">
           <BiMenuAltRight
             className="text-4xl text-color-4"

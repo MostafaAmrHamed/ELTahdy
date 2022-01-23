@@ -7,16 +7,59 @@ import { IoMdArrowDropdown } from "react-icons/io";
 const AdminNavbar = () => {
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState("home");
-  const [open, setOpen] = useState({ studentMenu: false, examsMenu: false });
+  const [open, setOpen] = useState({
+    studentMenu: false,
+    examsMenu: false,
+    profile: false,
+  });
   return (
     <div>
       {/* Desktop Nav */}
-      <div className="hidden md:!block">
+      <div className="container mx-auto hidden md:!block ">
         <nav className="flex justify-between items-center py-4 px-2 lg:px-3">
-          <button className="flex items-center gap-2 bg-color-4 text-color-1 hover:text-component transition duration-300 ease-in-out font-medium text-2xl py-1 px-3 rounded-md">
-            <FaUserCircle />
-            عمرو حامد
-          </button>
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setOpen({ ...open, profile: false });
+            }}
+          >
+            <button
+              className="flex items-center gap-2 bg-color-4 text-color-1 hover:text-component transition duration-300 ease-in-out font-medium text-2xl py-1 px-3 rounded-md"
+              onClick={() => {
+                setOpen({ ...open, profile: !open.profile });
+              }}
+            >
+              <FaUserCircle />
+              عمرو حامد
+            </button>
+            {open.profile && (
+              <ul className="absolute text-xl bg-color-4 text-color-1 py-2 w-[150px] mt-2 rounded-md shadow-md">
+                <li
+                  className="border-b-2 border-color-3 pr-2 hover:bg-cancel hover:cursor-pointer transition ease-in-out"
+                  onClick={() => {
+                    setActive("");
+                    setOpen({
+                      ...open,
+                      profile: false,
+                    });
+                  }}
+                >
+                  تغير كلمة السر
+                </li>
+                <li
+                  className="mt-1 pr-2 hover:bg-cancel hover:cursor-pointer transition ease-in-out"
+                  onClick={() => {
+                    setActive("");
+                    setOpen({
+                      ...open,
+                      profile: false,
+                    });
+                  }}
+                >
+                  تسجيل الخروج
+                </li>
+              </ul>
+            )}
+          </OutsideClickHandler>
           <ul className="flex justify-around text-2xl lg:text-3xl gap-5 lg:gap-8 bg-color-2 w-auto text-color-3 font-semibold py-2 px-5 lg:px-10 rounded-md">
             <li
               className="text-2xl lg:text-3xl hover:text-color-4 hover:cursor-pointer"
@@ -146,7 +189,7 @@ const AdminNavbar = () => {
       </div>
 
       {/* Mobile Nav */}
-      <div className="md:hidden fixed w-full">
+      <div className="md:hidden w-full">
         <nav className="flex justify-between px-5 py-3">
           <BiMenuAltRight
             className="text-4xl text-color-4"
@@ -161,8 +204,8 @@ const AdminNavbar = () => {
             <li className="border-b-2 border-color-3 px-2 py-3 hover:text-cancel transition ease-in-out">
               الصفحة الرئيسية
             </li>
-            <div className="border-b-2 border-color-3 px-2 py-3 ">
-              الطــلاب
+            <li className="border-b-2 border-color-3 px-2 py-3 ">
+              <p className="underline decoration-cancel">الطــلاب</p>
               <ul className="pr-5 font-medium">
                 <li className="hover:text-cancel transition ease-in-out">
                   إضافة طالب
@@ -171,9 +214,9 @@ const AdminNavbar = () => {
                   إيجاد طالب
                 </li>
               </ul>
-            </div>
-            <div className="px-2 pt-3 ">
-              الامتحــانات
+            </li>
+            <li className="px-2 py-3 border-b-2 border-color-3">
+              <p className="underline decoration-cancel">الامتحــانات</p>
               <ul className="pr-5 font-medium">
                 <li className="hover:text-cancel transition ease-in-out">
                   إضافة امتحان
@@ -185,7 +228,10 @@ const AdminNavbar = () => {
                   امتحانات تم نشرها
                 </li>
               </ul>
-            </div>
+            </li>
+            <li className="px-2 pt-3 hover:text-cancel transition ease-in-out">
+              احصائيات
+            </li>
           </ul>
         )}
       </div>

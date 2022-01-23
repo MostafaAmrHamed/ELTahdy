@@ -5,7 +5,7 @@ import AdmintNav from "./navbar-permissions/AdminNavbar";
 const Navbar = () => {
   const [user, setUser] = useState(true);
   return (
-    <div className="container mx-auto">
+    <div>
       {!user && <MainNav />}
       {user && <AdmintNav />}
     </div>
