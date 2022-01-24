@@ -5,7 +5,7 @@ import AdmintNav from "./navbar-permissions/AdminNavbar";
 const Navbar = () => {
   const [user, setUser] = useState(true);
   return (
-    <div>
+    <div className="relative select-none z-50">
       {!user && <MainNav />}
       {user && <AdmintNav />}
     </div>

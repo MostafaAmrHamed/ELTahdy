@@ -189,7 +189,7 @@ const AdminNavbar = () => {
       </div>
 
       {/* Mobile Nav */}
-      <div className="md:hidden w-full">
+      <div className="md:hidden mx-auto w-[95%]">
         <nav className="flex justify-between px-5 py-3">
           <BiMenuAltRight
             className="text-4xl text-color-4"
@@ -200,7 +200,7 @@ const AdminNavbar = () => {
           <h1 className="text-3xl">Logo</h1>
         </nav>
         {toggle && (
-          <ul className="flex flex-col text-2xl font-semibold text-color-2 bg-color-4 py-2">
+          <ul className="flex flex-col text-2xl font-semibold text-color-2 bg-color-4 py-2 rounded-b-xl rounded-t-md">
             <li
               className="border-b-2 border-color-3 px-2 py-3 hover:text-cancel transition ease-in-out"
               onClick={() => {
