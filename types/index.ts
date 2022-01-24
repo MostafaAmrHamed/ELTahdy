@@ -4,3 +4,11 @@ export type leaderBoard = {
   secondName: string;
   thirdName: string;
 };
+export type contacts = {
+  facebook: string;
+  youtube: string;
+  whatsApp: {
+    Number1: string;
+    Number2?: string;
+  };
+};

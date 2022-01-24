@@ -1,28 +1,39 @@
 import React from "react";
 import Head from "next/head";
 import Card from "../components/LeaderBoard";
+import Contacts from "../components/Contacts";
 
 export default function Home() {
-  const data = [
-    {
-      year: "الصف الاول الثانـوي",
-      firstName: "محمد خالد عمرو ",
-      secondName: "محمد خالد عمرو شوقي",
-      thirdName: "محمد خالد عمرو شوقي",
+  const data = {
+    leaderBoard: [
+      {
+        year: "الصف الاول الثانـوي",
+        firstName: "محمد خالد عمرو ",
+        secondName: "محمد خالد عمرو شوقي",
+        thirdName: "محمد خالد عمرو شوقي",
+      },
+      {
+        year: "الصف الثاني الثانـوي",
+        firstName: "محمد خالد عمرو شوقي",
+        secondName: "محمد خالد عمرو شوقي",
+        thirdName: "محمد خالد عمرو شوقي",
+      },
+      {
+        year: "الصف الثالث الثانـوي",
+        firstName: "محمد خالد عمرو شوقي",
+        secondName: "محمد خالد عمرو شوقي",
+        thirdName: "محمد خالد عمرو شوقي",
+      },
+    ],
+    contacts: {
+      facebook: "https://www.facebook.com",
+      youtube: "https://www.facebook.com",
+      whatsApp: {
+        Number1: "0123456789",
+        Number2: "0123456789",
+      },
     },
-    {
-      year: "الصف الثاني الثانـوي",
-      firstName: "محمد خالد عمرو شوقي",
-      secondName: "محمد خالد عمرو شوقي",
-      thirdName: "محمد خالد عمرو شوقي",
-    },
-    {
-      year: "الصف الثالث الثانـوي",
-      firstName: "محمد خالد عمرو شوقي",
-      secondName: "محمد خالد عمرو شوقي",
-      thirdName: "محمد خالد عمرو شوقي",
-    },
-  ];
+  };
   return (
     <div className="flex flex-col items-center min-h-screen py-2">
       <Head>
@@ -41,7 +52,7 @@ export default function Home() {
       </div>
       <h1 className="text-5xl my-8"> أ/عمرو حامد</h1>
       <div className="flex flex-col gap-10 lg:flex-row lg:gap-0 lg:justify-evenly lg:w-full">
-        {data.map((item, index) => {
+        {data.leaderBoard.map((item, index) => {
           return (
             <Card
               key={index}
@@ -53,6 +64,11 @@ export default function Home() {
           );
         })}
       </div>
+      <Contacts
+        facebook={data.contacts.facebook}
+        youtube={data.contacts.youtube}
+        whatsApp={data.contacts.whatsApp}
+      />
     </div>
   );
 }
