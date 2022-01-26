@@ -35,12 +35,12 @@ export default function Home() {
     },
   };
   return (
-    <div className="flex flex-col items-center min-h-screen py-2">
+    <div className="flex flex-col items-center py-2">
       <Head>
         <title>EL Tahdy</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="relative bg-color-1 mt-5 w-[275px] py-5 md:w-[500px] md:py-6 rounded-full md:rounded-3xl shadow-lg">
+      <div className="relative bg-color-1 mt-2 w-[275px] py-5 md:w-[500px] md:py-6 rounded-full md:rounded-3xl shadow-lg">
         <h1 className="text-2xl md:text-4xl text-gray-700 text-center font-semibold ">
           الطلاب المتميزين هذا الشهر
         </h1>
