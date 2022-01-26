@@ -4,7 +4,7 @@ import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 const Contacts: React.FC<contacts> = ({ facebook, youtube, whatsApp }) => {
   return (
-    <div className="flex flex-col gap-4 lg:gap-0 md:flex-row justify-evenly md:w-full mt-5">
+    <div className="flex flex-col gap-4 lg:gap-0 md:flex-row justify-evenly md:w-full mt-10">
       <a
         className="bg-component flex flex-row items-center justify-around py-2 w-[300px] rounded-lg hover:scale-105 transition ease-in-out"
         href={facebook}
