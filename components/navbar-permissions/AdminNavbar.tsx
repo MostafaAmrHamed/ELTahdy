@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import OutsideClickHandler from "react-outside-click-handler";
 import { BiMenuAltRight } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
@@ -87,18 +88,20 @@ const AdminNavbar = () => {
               </li>
               {open.studentMenu && (
                 <ul className="absolute text-2xl bg-color-2 py-2 w-[150px] mt-3 rounded-md shadow-md">
-                  <li
-                    className="border-b-2 border-color-1 pr-2 hover:text-color-4 hover:cursor-pointer transition ease-in-out"
-                    onClick={() => {
-                      setActive("students");
-                      setOpen({
-                        ...open,
-                        studentMenu: false,
-                      });
-                    }}
-                  >
-                    إضافة طالب
-                  </li>
+                  <Link href="/addStudent">
+                    <li
+                      className="border-b-2 border-color-1 pr-2 hover:text-color-4 hover:cursor-pointer transition ease-in-out"
+                      onClick={() => {
+                        setActive("students");
+                        setOpen({
+                          ...open,
+                          studentMenu: false,
+                        });
+                      }}
+                    >
+                      إضافة طالب
+                    </li>
+                  </Link>
                   <li
                     className="pt-1 pr-2 hover:text-color-4 hover:cursor-pointer transition ease-in-out"
                     onClick={() => {
