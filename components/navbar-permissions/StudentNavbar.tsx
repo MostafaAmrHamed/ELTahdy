@@ -79,7 +79,7 @@ const StudentNavbar = () => {
       </div>
 
       {/* Mobile Nav */}
-      <div className="md:hidden w-full">
+      <div className="md:hidden w-11/12">
         <nav className="flex justify-between px-5 py-3">
           <BiMenuAltRight
             className="text-4xl text-color-4"
