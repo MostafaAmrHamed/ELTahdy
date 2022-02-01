@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Swal from "sweetalert2";
 import Header from "../components/Header";
 import Validate from "../components/Validation";
 import {
@@ -21,16 +22,52 @@ const addStudent = () => {
     setStudent({ name: "", password: "", phone: "", phone2: "", year: "" });
     setValidate(false);
   };
-
+  const deleteData = () => {
+    Swal.fire({
+      title: "هل تريد حذف البيانات؟",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "لا,عودة",
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "نعم,احـذفها",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "تم الحـذف بنجاح",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        resetData();
+      }
+    });
+  };
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (
       nameValidate(student.name).validate ||
       phoneValidate(student.phone).validate ||
-      phoneValidate(student.phone2).validate
+      phoneValidate(student.phone2).validate ||
+      yearValidate(student.year).validate ||
+      passwordValidate(student.password).validate
     ) {
+      Swal.fire({
+        icon: "error",
+        title: "خطأ",
+        text: "هناك خطأ في ادخال البيانات",
+        confirmButtonText: "عودة",
+      });
       setValidate(true);
     } else {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "تم تسجيل الطالب بنجاح",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       setValidate(false);
       console.log(student);
       resetData();
@@ -159,9 +196,9 @@ const addStudent = () => {
             <button
               type="button"
               className="bg-cancel w-fit px-7 py-1 text-3xl text-color-2 rounded-lg"
-              onClick={resetData}
+              onClick={deleteData}
             >
-              الغاء
+              حـذف
             </button>
           </div>
         </form>
