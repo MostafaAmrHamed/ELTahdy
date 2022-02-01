@@ -33,7 +33,7 @@ export const passwordValidate = (password: string) => {
     state.message = "من فضلك ادخل كلمة السر";
     state.validate = true;
   } else if (password.length < 8) {
-    state.message = "تاكد ان تكون اكثر من 8 احروف أو ارقام";
+    state.message = "يجب ان لا تقل عن 8 حروف أو ارقام";
     state.validate = true;
   } else {
     state.message = "";
