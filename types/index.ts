@@ -12,3 +12,12 @@ export type contacts = {
     Number2?: string;
   };
 };
+export type studentData = {
+  user: {
+    name: string;
+    password: string;
+  };
+  phone: string;
+  parent_phone: string;
+  year: string;
+};
