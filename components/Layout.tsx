@@ -4,7 +4,7 @@ import Footer from "./Footer";
 const Layout: React.FC = ({ children }) => {
   return (
     <div
-      className="flex flex-col justify-between bg-background font-body"
+      className="flex flex-col justify-between bg-background font-body h-screen"
       style={{ direction: "rtl" }}
     >
       <Navbar />
