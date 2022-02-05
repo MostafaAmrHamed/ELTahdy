@@ -21,3 +21,8 @@ export type studentData = {
   parent_phone: string;
   year: string;
 };
+export type studentSearchData = {
+  studentName: string;
+  year: string;
+  id: number;
+};

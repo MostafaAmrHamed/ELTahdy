@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
+import StudentCard from "../components/StudentCard";
 
 const findStudent = () => {
   const [search, setSearch] = useState({ year: "", studentName: "" });
+  const handleSubmit = () => {
+    console.log(search.studentName + " " + search.year);
+  };
   return (
     <div className="mx-auto">
       <Header title={"إيجاد طالب"} />
@@ -35,9 +39,22 @@ const findStudent = () => {
         <button
           type="button"
           className="bg-cancel rounded-full text-2xl font-semibold text-color-2 mt-3 md:mt-0 px-8 py-1"
+          onClick={handleSubmit}
         >
           بحـث
         </button>
+      </div>
+      <div className="md:max-w-[90%] lg:max-w-full md:mx-auto mt-5">
+        <div className="hidden md:grid grid-cols-4 place-items-center font-semibold text-color-3 text-3xl border-b-[3px] border-component pb-2">
+          <h1 className="col-span-2"> الاسـم</h1>
+
+          <h1> الصـف</h1>
+        </div>
+        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
+        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
+        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
+        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
+        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
       </div>
     </div>
   );
