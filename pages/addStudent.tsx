@@ -12,14 +12,21 @@ import { studentData } from "../types";
 const addStudent = () => {
   const [validate, setValidate] = useState(false);
   const [student, setStudent] = useState<studentData>({
-    name: "",
-    password: "",
+    user: {
+      name: "",
+      password: "",
+    },
     phone: "",
-    phone2: "",
+    parent_phone: "",
     year: "",
   });
   const resetData = () => {
-    setStudent({ name: "", password: "", phone: "", phone2: "", year: "" });
+    setStudent({
+      user: { name: "", password: "" },
+      phone: "",
+      parent_phone: "",
+      year: "",
+    });
     setValidate(false);
   };
   const deleteData = () => {
@@ -47,11 +54,11 @@ const addStudent = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (
-      nameValidate(student.name).validate ||
+      nameValidate(student.user.name).validate ||
       phoneValidate(student.phone).validate ||
-      phoneValidate(student.phone2).validate ||
+      phoneValidate(student.parent_phone).validate ||
       yearValidate(student.year).validate ||
-      passwordValidate(student.password).validate
+      passwordValidate(student.user.password).validate
     ) {
       Swal.fire({
         icon: "error",
@@ -85,16 +92,22 @@ const addStudent = () => {
             <input
               type="text"
               className="w-11/12 md:w-auto md:col-span-3 py-2 px-2 mt-3 md:mt-0 md:p-2 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-color-4 shadow-sm"
-              value={student.name}
+              value={student.user.name}
               onChange={(e) => {
-                setStudent({ ...student, name: e.target.value });
+                setStudent({
+                  ...student,
+                  user: {
+                    ...student.user,
+                    name: e.target.value,
+                  },
+                });
               }}
             />
             {validate && (
               <div className="mt-2 col-start-2 col-span-3 text-center md:text-right md:pr-2">
                 <Validate
-                  message={nameValidate(student.name).message}
-                  validation={nameValidate(student.name).validate}
+                  message={nameValidate(student.user.name).message}
+                  validation={nameValidate(student.user.name).validate}
                 />
               </div>
             )}
@@ -106,16 +119,22 @@ const addStudent = () => {
             <input
               type="password"
               className="w-11/12 md:w-auto md:col-span-3 py-2 px-2 mt-3 md:mt-0 md:p-2 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-color-4 shadow-sm"
-              value={student.password}
+              value={student.user.password}
               onChange={(e) => {
-                setStudent({ ...student, password: e.target.value });
+                setStudent({
+                  ...student,
+                  user: {
+                    ...student.user,
+                    password: e.target.value,
+                  },
+                });
               }}
             />
             {validate && (
               <div className="mt-2 col-start-2 col-span-3 text-center md:text-right md:pr-2">
                 <Validate
-                  message={passwordValidate(student.password).message}
-                  validation={passwordValidate(student.password).validate}
+                  message={passwordValidate(student.user.password).message}
+                  validation={passwordValidate(student.user.password).validate}
                 />
               </div>
             )}
@@ -148,16 +167,16 @@ const addStudent = () => {
             <input
               type="number"
               className="w-11/12 md:w-auto md:col-span-3 py-2 px-2 mt-3 md:mt-0 md:p-2 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-color-4 shadow-sm"
-              value={student.phone2}
+              value={student.parent_phone}
               onChange={(e) => {
-                setStudent({ ...student, phone2: e.target.value });
+                setStudent({ ...student, parent_phone: e.target.value });
               }}
             />
             {validate && (
               <div className="mt-2 col-start-2 col-span-3 text-center md:text-right md:pr-2">
                 <Validate
-                  message={phoneValidate(student.phone2).message}
-                  validation={phoneValidate(student.phone2).validate}
+                  message={phoneValidate(student.parent_phone).message}
+                  validation={phoneValidate(student.parent_phone).validate}
                 />
               </div>
             )}

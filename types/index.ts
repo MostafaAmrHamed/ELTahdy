@@ -13,9 +13,11 @@ export type contacts = {
   };
 };
 export type studentData = {
-  name: string;
-  password: string;
+  user: {
+    name: string;
+    password: string;
+  };
   phone: string;
-  phone2: string;
+  parent_phone: string;
   year: string;
 };
