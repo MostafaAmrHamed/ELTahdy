@@ -14,7 +14,7 @@ const Pagination: React.FC<pagination> = ({
   return (
     <div>
       <PaginationComponent
-        className="flex justify-center mt-5"
+        className="flex justify-center"
         count={numberOfPages}
         color="primary"
         style={{ direction: "ltr" }}

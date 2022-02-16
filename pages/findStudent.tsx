@@ -98,16 +98,18 @@ const findStudent = () => {
               );
             }
           })}
-        {datatoShow.map((student, index) => {
-          return (
-            <StudentCard
-              studentName={student.name}
-              year={student.year}
-              id={student.id}
-              key={index}
-            />
-          );
-        })}
+        <div className=" md:h-[500px]">
+          {datatoShow.map((student, index) => {
+            return (
+              <StudentCard
+                studentName={student.name}
+                year={student.year}
+                id={student.id}
+                key={index}
+              />
+            );
+          })}
+        </div>
       </div>
       <Pagination
         dataLength={fakeData.length}
