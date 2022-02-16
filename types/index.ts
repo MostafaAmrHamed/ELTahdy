@@ -26,3 +26,8 @@ export type studentSearchData = {
   year: string;
   id: number;
 };
+export type pagination = {
+  dataLength: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  perPage: number;
+};
