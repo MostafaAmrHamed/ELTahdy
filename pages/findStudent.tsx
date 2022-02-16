@@ -1,12 +1,34 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import StudentCard from "../components/StudentCard";
-
+import Pagination from "../components/Pagination";
 const findStudent = () => {
   const [search, setSearch] = useState({ year: "", studentName: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterData, setFilterData] = useState({});
   const handleSubmit = () => {
     console.log(search.studentName + " " + search.year);
   };
+  const fakeData = [
+    { id: 1, name: "Mostafa Amr", year: "اولى" },
+    { id: 2, name: "Mostafa Amr", year: "اولى" },
+    { id: 3, name: "Mostafa Amr", year: "اولى" },
+    { id: 4, name: "Mostafa Amr", year: "اولى" },
+    { id: 5, name: "Mostafa Amr", year: "اولى" },
+    { id: 6, name: "Mohamed Amr", year: "2nd" },
+    { id: 7, name: "Mostafa Amr", year: "اولى" },
+    { id: 8, name: "Mohamed Amr", year: "2nd" },
+    { id: 9, name: "Mohamed Amr", year: "2nd" },
+    { id: 10, name: "Mohamed Amr", year: "2nd" },
+    { id: 11, name: "Menna Amr", year: "3rd" },
+    { id: 12, name: "Menna Amr", year: "3rd" },
+    { id: 13, name: "Menna Amr", year: "3rd" },
+    { id: 14, name: "Menna Amr", year: "3rd" },
+    { id: 15, name: "Menna Amr", year: "3rd" },
+    { id: 16, name: "Menna Amr", year: "3rd" },
+  ];
+
+  const datatoShow = fakeData.slice((currentPage - 1) * 5, currentPage * 5);
   return (
     <div className="mx-auto">
       <Header title={"إيجاد طالب"} />
@@ -50,12 +72,48 @@ const findStudent = () => {
 
           <h1> الصـف</h1>
         </div>
-        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
-        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
-        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
-        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
-        <StudentCard studentName="مصطفي عمرو" year="الاول" id={1} />
+        {search.studentName &&
+          fakeData.map((student, index) => {
+            if (student.name.includes(search.studentName)) {
+              return (
+                <StudentCard
+                  studentName={student.name}
+                  year={student.year}
+                  id={student.id}
+                  key={index}
+                />
+              );
+            }
+          })}
+        {search.year &&
+          fakeData.map((student, index) => {
+            if (search.year === student.year) {
+              return (
+                <StudentCard
+                  studentName={student.name}
+                  year={student.year}
+                  id={student.id}
+                  key={index}
+                />
+              );
+            }
+          })}
+        {datatoShow.map((student, index) => {
+          return (
+            <StudentCard
+              studentName={student.name}
+              year={student.year}
+              id={student.id}
+              key={index}
+            />
+          );
+        })}
       </div>
+      <Pagination
+        dataLength={fakeData.length}
+        perPage={5}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
