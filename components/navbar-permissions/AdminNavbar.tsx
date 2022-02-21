@@ -62,15 +62,17 @@ const AdminNavbar = () => {
             )}
           </OutsideClickHandler>
           <ul className="flex justify-around text-2xl lg:text-3xl gap-5 lg:gap-8 bg-color-2 w-auto text-color-3 font-semibold py-2 px-5 lg:px-10 rounded-md">
-            <li
-              className="text-2xl lg:text-3xl hover:text-color-4 hover:cursor-pointer"
-              style={{ color: active === "home" ? "#6159e6" : "" }}
-              onClick={() => {
-                setActive("home");
-              }}
-            >
-              الصفحة الرئيسية
-            </li>
+            <Link href="/">
+              <li
+                className="text-2xl lg:text-3xl hover:text-color-4 hover:cursor-pointer"
+                style={{ color: active === "home" ? "#6159e6" : "" }}
+                onClick={() => {
+                  setActive("home");
+                }}
+              >
+                الصفحة الرئيسية
+              </li>
+            </Link>
             <OutsideClickHandler
               onOutsideClick={() => {
                 setOpen({ ...open, studentMenu: false });
@@ -102,18 +104,20 @@ const AdminNavbar = () => {
                       إضافة طالب
                     </li>
                   </Link>
-                  <li
-                    className="pt-1 pr-2 hover:text-color-4 hover:cursor-pointer transition ease-in-out"
-                    onClick={() => {
-                      setActive("students");
-                      setOpen({
-                        ...open,
-                        studentMenu: false,
-                      });
-                    }}
-                  >
-                    إيجاد طالب
-                  </li>
+                  <Link href="/findStudent">
+                    <li
+                      className="pt-1 pr-2 hover:text-color-4 hover:cursor-pointer transition ease-in-out"
+                      onClick={() => {
+                        setActive("students");
+                        setOpen({
+                          ...open,
+                          studentMenu: false,
+                        });
+                      }}
+                    >
+                      إيجاد طالب
+                    </li>
+                  </Link>
                 </ul>
               )}
             </OutsideClickHandler>
