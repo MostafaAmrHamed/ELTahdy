@@ -4,6 +4,7 @@ import { pagination } from "../types";
 
 const Pagination: React.FC<pagination> = ({
   dataLength,
+  currentPage,
   setCurrentPage,
   perPage,
 }) => {
@@ -15,6 +16,7 @@ const Pagination: React.FC<pagination> = ({
     <div>
       <PaginationComponent
         className="flex justify-center"
+        page={currentPage}
         count={numberOfPages}
         color="primary"
         style={{ direction: "ltr" }}
