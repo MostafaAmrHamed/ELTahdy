@@ -1,55 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { InferGetStaticPropsType } from "next";
 import Header from "../components/Header";
 import StudentCard from "../components/StudentCard";
 import Pagination from "../components/Pagination";
-import { studentSearchData } from "../types";
-const findStudent = () => {
+import { findStudentData, findStudent } from "../types";
+const findStudent = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [students, setStudent] = useState<findStudentData>(data);
   const [search, setSearch] = useState({ year: "", studentName: "" });
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterData, setFilterData] = useState<studentSearchData[]>([]);
-  const handleSubmit = () => {
-    console.log(search.studentName + " " + search.year);
-    setFilterData([]);
-    for (let student of fakeData) {
-      if (student.studentName.includes(search.studentName)) {
-        setFilterData([...filterData, student]);
-        console.log(student.studentName + " Inside");
-      }
-    }
-  };
-  const yearOnChange = (e: any) => {
-    setSearch({ ...search, year: e.target.value });
-    setFilterData([]);
-    for (let student of fakeData) {
-      if (student.studentName.includes(search.studentName)) {
-        setFilterData([...filterData, student]);
-        console.log(student.studentName);
-      }
-    }
-  };
-  const fakeData: studentSearchData[] = [
-    { id: 1, studentName: "Mostafa Amr", year: "اولى" },
-    { id: 2, studentName: "Mostafa Amr", year: "اولى" },
-    { id: 3, studentName: "Mostafa Amr", year: "اولى" },
-    { id: 4, studentName: "Mostafa Amr", year: "اولى" },
-    { id: 5, studentName: "Mostafa Amr", year: "اولى" },
-    { id: 6, studentName: "Mohamed Amr", year: "2nd" },
-    { id: 7, studentName: "Mostafa Amr", year: "اولى" },
-    { id: 8, studentName: "Mohamed Amr", year: "2nd" },
-    { id: 9, studentName: "Mohamed Amr", year: "2nd" },
-    { id: 10, studentName: "Mohamed Amr", year: "2nd" },
-    { id: 11, studentName: "Menna Amr", year: "3rd" },
-    { id: 12, studentName: "Menna Amr", year: "3rd" },
-    { id: 13, studentName: "Menna Amr", year: "3rd" },
-    { id: 14, studentName: "Menna Amr", year: "3rd" },
-    { id: 15, studentName: "Menna Amr", year: "3rd" },
-    { id: 16, studentName: "Menna Amr", year: "3rd" },
-  ];
+  const datatoShow = students.slice((currentPage - 1) * 5, currentPage * 5);
 
-  const datatoShow =
-    filterData.length === 0
-      ? filterData.slice((currentPage - 1) * 5, currentPage * 5)
-      : fakeData.slice((currentPage - 1) * 5, currentPage * 5);
+  const handleSubmit = () => {
+    setCurrentPage(1);
+    const temp: findStudentData = [];
+    if (search.studentName && !search.year) {
+      data.forEach((student) => {
+        if (student.username.includes(search.studentName)) {
+          temp.push(student);
+        }
+      });
+      setStudent(temp);
+    } else if (!search.studentName && search.year) {
+      data.forEach((student) => {
+        if (student.year.includes(search.year)) {
+          temp.push(student);
+        }
+      });
+      setStudent(temp);
+    } else if (search.studentName && search.year) {
+      data.forEach((student) => {
+        if (
+          student.username.includes(search.studentName) &&
+          student.year.includes(search.year)
+        ) {
+          temp.push(student);
+        }
+      });
+      setStudent(temp);
+    } else {
+      setStudent(data);
+    }
+  };
   return (
     <div className="mx-auto">
       <Header title={"إيجاد طالب"} />
@@ -57,13 +50,15 @@ const findStudent = () => {
         <select
           className="py-2 pr-5 rounded-full w-full md:w-[200px] shadow-sm focus:outline-none focus:ring-2 focus:ring-color-4"
           value={search.year}
-          onChange={yearOnChange}
+          onChange={(e) => {
+            setSearch({ ...search, year: e.target.value });
+          }}
         >
           <option value="">الصف</option>
-          <option value="اولى">اولى</option>
-          <option value="ثانية علمي">ثانية علمي</option>
-          <option value="ثانية ادبي">ثانية ادبي</option>
-          <option value="ثالثة">ثالثة</option>
+          <option value="اولي">اولي</option>
+          <option value="الثاني علمي">الثاني علمي</option>
+          <option value="الثاني ادبي">الثاني ادبي</option>
+          <option value="الثالث">الثالث</option>
         </select>
         <input
           type="text"
@@ -91,62 +86,44 @@ const findStudent = () => {
 
           <h1> الصـف</h1>
         </div>
-        {/* {search.studentName &&
-          fakeData.map((student, index) => {
-            if (student.name.includes(search.studentName)) {
-              return (
-                <StudentCard
-                  studentName={student.name}
-                  year={student.year}
-                  id={student.id}
-                  key={index}
-                />
-              );
-            }
-          })}
-        {search.year &&
-          fakeData.map((student, index) => {
-            if (search.year === student.year) {
-              return (
-                <StudentCard
-                  studentName={student.name}
-                  year={student.year}
-                  id={student.id}
-                  key={index}
-                />
-              );
-            }
-          })} */}
+
         <div className="md:h-[500px]">
-          {/* {datatoShow.map((student, index) => {
-            return (
-              <StudentCard
-                studentName={student.name}
-                year={student.year}
-                id={student.id}
-                key={index}
-              />
-            );
-          })} */}
-          {datatoShow.map((student, index) => {
-            return (
-              <StudentCard
-                studentName={student.studentName}
-                year={student.year}
-                id={student.id}
-                key={index}
-              />
-            );
-          })}
+          {students.length ? (
+            datatoShow.map((student, index) => {
+              return (
+                <StudentCard
+                  studentName={student.username}
+                  year={student.year}
+                  id={student.id}
+                  key={index}
+                />
+              );
+            })
+          ) : (
+            <div className="md:text-4xl text-2xl text-center font-bold mt-5">
+              <h1 className="mb-2"> لا يوجد الطالب: {search.studentName}</h1>
+              {search.year && <h1> في الصف: {search.year} </h1>}
+            </div>
+          )}
         </div>
       </div>
       <Pagination
-        dataLength={fakeData.length}
+        dataLength={students.length}
         perPage={5}
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
     </div>
   );
+};
+export const getStaticProps = async () => {
+  const res = await fetch("https://eltahdy.herokuapp.com/api/students/");
+  const data: findStudent[] = await res.json();
+  return {
+    props: {
+      data,
+    },
+  };
 };
 
 export default findStudent;

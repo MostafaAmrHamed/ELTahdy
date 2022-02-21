@@ -21,13 +21,29 @@ export type studentData = {
   parent_phone: string;
   year: string;
 };
-export type studentSearchData = {
+export type studentCard = {
+  id: number;
   studentName: string;
   year: string;
-  id: number;
 };
 export type pagination = {
   dataLength: number;
+  currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   perPage: number;
 };
+export type findStudent = {
+  id: number;
+  username: string;
+  // user: { username: string };
+  phone: string;
+  parent_phone: string;
+  year: string;
+};
+export type findStudentData = {
+  id: number;
+  username: string;
+  phone: string;
+  parent_phone: string;
+  year: string;
+}[];
