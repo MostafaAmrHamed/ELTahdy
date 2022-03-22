@@ -219,24 +219,28 @@ const AdminNavbar = () => {
             <li className="border-b-2 border-color-3 px-2 py-3 ">
               الطــلاب
               <ul className="pr-5 font-medium">
-                <li
-                  className="hover:text-cancel transition ease-in-out flex items-center"
-                  onClick={() => {
-                    setToggle(false);
-                  }}
-                >
-                  <IoMdArrowDropleft />
-                  إضافة طالب
-                </li>
-                <li
-                  className="hover:text-cancel transition ease-in-out flex items-center"
-                  onClick={() => {
-                    setToggle(false);
-                  }}
-                >
-                  <IoMdArrowDropleft />
-                  إيجاد طالب
-                </li>
+                <Link href="/addStudent">
+                  <li
+                    className="hover:text-cancel transition ease-in-out flex items-center"
+                    onClick={() => {
+                      setToggle(false);
+                    }}
+                  >
+                    <IoMdArrowDropleft />
+                    إضافة طالب
+                  </li>
+                </Link>
+                <Link href="/findStudent">
+                  <li
+                    className="hover:text-cancel transition ease-in-out flex items-center"
+                    onClick={() => {
+                      setToggle(false);
+                    }}
+                  >
+                    <IoMdArrowDropleft />
+                    إيجاد طالب
+                  </li>
+                </Link>
               </ul>
             </li>
             <li className="px-2 py-3 border-b-2 border-color-3">
