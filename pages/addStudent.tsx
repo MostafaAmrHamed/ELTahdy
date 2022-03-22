@@ -9,11 +9,12 @@ import {
   yearValidate,
 } from "../logical/validation";
 import { studentData } from "../types";
+import axios from "axios";
 const addStudent = () => {
   const [validate, setValidate] = useState(false);
   const [student, setStudent] = useState<studentData>({
     user: {
-      name: "",
+      username: "",
       password: "",
     },
     phone: "",
@@ -22,7 +23,7 @@ const addStudent = () => {
   });
   const resetData = () => {
     setStudent({
-      user: { name: "", password: "" },
+      user: { username: "", password: "" },
       phone: "",
       parent_phone: "",
       year: "",
@@ -54,7 +55,7 @@ const addStudent = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (
-      nameValidate(student.user.name).validate ||
+      nameValidate(student.user.username).validate ||
       phoneValidate(student.phone).validate ||
       phoneValidate(student.parent_phone).validate ||
       yearValidate(student.year).validate ||
@@ -68,16 +69,27 @@ const addStudent = () => {
       });
       setValidate(true);
     } else {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "تم تسجيل الطالب بنجاح",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      setValidate(false);
-      console.log(student);
-      resetData();
+      axios
+        .post("https://eltahdy.herokuapp.com/api/students/", student)
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "تم تسجيل الطالب بنجاح",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          setValidate(false);
+          resetData();
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "خطأ",
+            text: error,
+            confirmButtonText: "عودة",
+          });
+        });
     }
   };
   return (
@@ -92,13 +104,13 @@ const addStudent = () => {
             <input
               type="text"
               className="w-11/12 md:w-auto md:col-span-3 py-2 px-2 mt-3 md:mt-0 md:p-2 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-color-4 shadow-sm"
-              value={student.user.name}
+              value={student.user.username}
               onChange={(e) => {
                 setStudent({
                   ...student,
                   user: {
                     ...student.user,
-                    name: e.target.value,
+                    username: e.target.value,
                   },
                 });
               }}
@@ -106,8 +118,8 @@ const addStudent = () => {
             {validate && (
               <div className="mt-2 col-start-2 col-span-3 text-center md:text-right md:pr-2">
                 <Validate
-                  message={nameValidate(student.user.name).message}
-                  validation={nameValidate(student.user.name).validate}
+                  message={nameValidate(student.user.username).message}
+                  validation={nameValidate(student.user.username).validate}
                 />
               </div>
             )}
@@ -191,10 +203,10 @@ const addStudent = () => {
               }}
             >
               <option value="">الصف</option>
-              <option value="اولى">اولى</option>
-              <option value="ثانية علمي">ثانية علمي</option>
-              <option value="ثانية ادبي">ثانية ادبي</option>
-              <option value="ثالثة">ثالثة</option>
+              <option value="اولي">اولي</option>
+              <option value="ثانيه علمي">ثانية علمي</option>
+              <option value="ثانيه ادبي">ثانية ادبي</option>
+              <option value="ثالثه">ثالثة</option>
             </select>
             {validate && (
               <div className="mt-2 col-start-2 col-span-3 text-center md:text-right md:pr-2">

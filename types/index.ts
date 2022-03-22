@@ -14,7 +14,7 @@ export type contacts = {
 };
 export type studentData = {
   user: {
-    name: string;
+    username: string;
     password: string;
   };
   phone: string;
