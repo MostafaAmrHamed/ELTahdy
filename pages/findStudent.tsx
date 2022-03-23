@@ -80,6 +80,7 @@ const findStudent = ({
           بحـث
         </button>
       </div>
+
       <div className="md:max-w-[90%] lg:max-w-full md:mx-auto mt-5">
         <div className="hidden md:grid grid-cols-4 place-items-center font-semibold text-color-3 text-3xl border-b-[3px] border-component pb-2">
           <h1 className="col-span-2"> الاسـم</h1>
