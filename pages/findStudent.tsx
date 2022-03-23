@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { InferGetStaticPropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import Header from "../components/Header";
 import StudentCard from "../components/StudentCard";
 import Pagination from "../components/Pagination";
 import { findStudentData, findStudent } from "../types";
 const findStudent = ({
   data,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [students, setStudent] = useState<findStudentData>(data);
   const [search, setSearch] = useState({ year: "", studentName: "" });
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,7 +58,7 @@ const findStudent = ({
           <option value="اولي">اولي</option>
           <option value="ثانيه علمي">ثانيه علمي</option>
           <option value="ثانيه ادبي">ثانيه ادبي</option>
-          <option value="الثالث">الثالث</option>
+          <option value="ثالثه">ثالثه</option>
         </select>
         <input
           type="text"
@@ -116,7 +116,7 @@ const findStudent = ({
     </div>
   );
 };
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetch("https://eltahdy.herokuapp.com/api/students/");
   const data: findStudent[] = await res.json();
   return {
