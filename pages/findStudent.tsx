@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { InferGetStaticPropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import Header from "../components/Header";
 import StudentCard from "../components/StudentCard";
 import Pagination from "../components/Pagination";
 import { findStudentData, findStudent } from "../types";
 const findStudent = ({
   data,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [students, setStudent] = useState<findStudentData>(data);
   const [search, setSearch] = useState({ year: "", studentName: "" });
   const [currentPage, setCurrentPage] = useState(1);
@@ -117,14 +117,13 @@ const findStudent = ({
     </div>
   );
 };
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetch("https://eltahdy.herokuapp.com/api/students/");
   const data: findStudent[] = await res.json();
   return {
     props: {
       data,
     },
-    revalidate: 10,
   };
 };
 
