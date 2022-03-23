@@ -58,7 +58,7 @@ const findStudent = ({
           <option value="اولي">اولي</option>
           <option value="ثانيه علمي">ثانيه علمي</option>
           <option value="ثانيه ادبي">ثانيه ادبي</option>
-          <option value="الثالث">الثالث</option>
+          <option value="ثالثه">ثالثه</option>
         </select>
         <input
           type="text"
