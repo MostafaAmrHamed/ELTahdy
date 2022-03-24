@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import EditStudentForm from "../components/EditStudentForm";
 import { FaUserCircle } from "react-icons/fa";
+import ExamCard from "../components/ExamCard";
 const studentProfile = () => {
   const [editStudent, setEditStudent] = useState(false);
   return (
@@ -40,6 +41,14 @@ const studentProfile = () => {
           </button>
         </div>
         {editStudent && <EditStudentForm />}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+          <ExamCard />
+          <ExamCard />
+          <ExamCard />
+          <ExamCard />
+          <ExamCard />
+          <ExamCard />
+        </div>
       </div>
     </div>
   );
