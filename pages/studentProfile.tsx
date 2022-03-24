@@ -14,7 +14,7 @@ const studentProfile = () => {
           رجوع
         </button>
       </div>
-      <div className="flex flex-col items-center space-y-3">
+      <div className="flex flex-col items-center space-y-7">
         <div className="text-color-4 text-8xl md:text-[150px]">
           <FaUserCircle />
         </div>
