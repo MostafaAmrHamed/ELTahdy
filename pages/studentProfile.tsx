@@ -1,9 +1,41 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import EditStudentForm from "../components/EditStudentForm";
 import { FaUserCircle } from "react-icons/fa";
 import ExamCard from "../components/ExamCard";
+import axios from "axios";
+import Swal from "sweetalert2";
 const studentProfile = () => {
+  const router = useRouter();
   const [editStudent, setEditStudent] = useState(false);
+  const deleteStudent = () => {
+    Swal.fire({
+      title: "هل أنت متأكد من حذف هذا الطالب؟",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "لا",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "نعم",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete("https://eltahdy.herokuapp.com/api/students/22")
+          .then((res) => {
+            Swal.fire("تم الحذف", "تم حذف الطالب بنجاح", "success");
+            router.push("/findStudent");
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "خطأ",
+              text: error,
+              confirmButtonText: "عودة",
+            });
+          });
+      }
+    });
+  };
   return (
     <div className="container mx-auto space-y-5">
       <div className="flex justify-end ml-5 md:ml-10">
@@ -36,6 +68,7 @@ const studentProfile = () => {
           <button
             type="button"
             className="bg-cancel w-fit px-7 py-1 text-2xl md:text-3xl text-color-2 rounded-lg"
+            onClick={deleteStudent}
           >
             حـذف
           </button>
