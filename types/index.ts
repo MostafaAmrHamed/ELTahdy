@@ -47,3 +47,11 @@ export type findStudentData = {
   parent_phone: string;
   year: string;
 }[];
+export type editStudent = {
+  user: {
+    username: string;
+  };
+  phone: string;
+  parent_phone: string;
+  year: string;
+};

@@ -4,17 +4,16 @@ import Validate from "../components/Validation";
 import {
   nameValidate,
   phoneValidate,
-  passwordValidate,
   yearValidate,
 } from "../logical/validation";
-import { studentData } from "../types";
+import { editStudent } from "../types";
+import axios from "axios";
 
 const EditStudentForm = () => {
   const [validate, setValidate] = useState(false);
-  const [student, setStudent] = useState<studentData>({
+  const [student, setStudent] = useState<editStudent>({
     user: {
       username: "",
-      password: "",
     },
     phone: "",
     parent_phone: "",
@@ -26,8 +25,7 @@ const EditStudentForm = () => {
       nameValidate(student.user.username).validate ||
       phoneValidate(student.phone).validate ||
       phoneValidate(student.parent_phone).validate ||
-      yearValidate(student.year).validate ||
-      passwordValidate(student.user.password).validate
+      yearValidate(student.year).validate
     ) {
       Swal.fire({
         icon: "error",
@@ -37,18 +35,32 @@ const EditStudentForm = () => {
       });
       setValidate(true);
     } else {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "تم تسجيل الطالب بنجاح",
-        showConfirmButton: false,
-        timer: 2000,
-      });
+      axios
+        .put("https://eltahdy.herokuapp.com/api/students/7/", student)
+        .then(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "تم الحفظ",
+            text: "تم تغير بيانات الطالب",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setValidate(false);
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "خطأ",
+            text: error,
+            confirmButtonText: "عودة",
+          });
+        });
     }
   };
   const recoverData = () => {
     setStudent({
-      user: { username: "", password: "" },
+      user: { username: "" },
       phone: "",
       parent_phone: "",
       year: "",
@@ -81,33 +93,6 @@ const EditStudentForm = () => {
               <Validate
                 message={nameValidate(student.user.username).message}
                 validation={nameValidate(student.user.username).validate}
-              />
-            </div>
-          )}
-        </div>
-        <div className="mb-5 border-b-2 border-color-2 mx-5 pb-5 md:grid md:grid-cols-4 items-center text-center ">
-          <label className="text-color-4 text-2xl font-semibold">
-            كلمة السر
-          </label>
-          <input
-            type="password"
-            className="w-11/12 md:w-auto md:col-span-3 py-2 px-2 mt-3 md:mt-0 md:p-2 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-color-4 shadow-sm"
-            value={student.user.password}
-            onChange={(e) => {
-              setStudent({
-                ...student,
-                user: {
-                  ...student.user,
-                  password: e.target.value,
-                },
-              });
-            }}
-          />
-          {validate && (
-            <div className="mt-2 col-start-2 col-span-3 text-center md:text-right md:pr-2">
-              <Validate
-                message={passwordValidate(student.user.password).message}
-                validation={passwordValidate(student.user.password).validate}
               />
             </div>
           )}
