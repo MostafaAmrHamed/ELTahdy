@@ -1,20 +1,30 @@
 import React from "react";
-
-const ExamCard = () => {
+import { convDate } from "../logical/date";
+import { studentexam } from "../types";
+const ExamCard: React.FC<studentexam> = (studentExam) => {
   return (
-    <div className="bg-color-2 p-5 w-[250px] rounded-lg space-y-5 shadow-sm">
+    <div className="bg-color-2 p-3 w-[270px] rounded-lg space-y-5 shadow-sm">
       <h1 className="bg-color-4 text-color-1 text-3xl text-center px-3 py-1 rounded-md">
-        هندسة فراغية
+        {studentExam.exam.subject}
       </h1>
       <div className="text-2xl font-semibold">
         <p>
-          مدة الامتحان: <span className="text-color-3"> 10:00</span>
+          مدة الامتحان:{" "}
+          <span className="text-color-3">
+            {studentExam.exam.duration} دقيقة
+          </span>
         </p>
         <p>
-          مدة الامتحان: <span className="text-color-3"> 10:00</span>
+          تاريخ الامتحان:{" "}
+          <span className="text-color-3">
+            {convDate(studentExam.exam.published_time).date}
+          </span>
         </p>
         <p>
-          مدة الامتحان: <span className="text-color-3"> 10:00</span>
+          الدرجة:{" "}
+          <span className="text-color-3">
+            {studentExam.total_earn} من {studentExam.total_degree}
+          </span>
         </p>
       </div>
       <div className="text-center space-y-3 text-color-2 text-2xl">
