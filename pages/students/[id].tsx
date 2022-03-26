@@ -41,7 +41,7 @@ const studentProfile = ({
               `<b> ${student.username} </b>`,
               "success"
             );
-            router.push("/findStudent");
+            router.push("/students");
           })
           .catch((error) => {
             Swal.fire({
@@ -61,7 +61,7 @@ const studentProfile = ({
       ) : (
         <>
           <div className="flex justify-end ml-5 md:ml-10">
-            <Link href="/findStudent">
+            <Link href="/students">
               <button
                 type="button"
                 className="bg-color-4 w-fit px-7 py-1 text-2xl md:text-3xl text-color-2 rounded-lg text-center"
@@ -117,7 +117,7 @@ const studentProfile = ({
                   }
                 )
               ) : (
-                <h1 className="text-center text-4xl font-bold text-color-3">
+                <h1 className="text-center text-3xl font-bold text-color-3 col-span-3">
                   لا يوجد اي امتحان لهذا الطالب...
                 </h1>
               )}
@@ -141,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (
   if (student.id === undefined) {
     return {
       redirect: {
-        destination: "/findStudent",
+        destination: "/students",
         permanent: false,
       },
     };
