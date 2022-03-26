@@ -55,3 +55,28 @@ export type editStudent = {
   parent_phone: string;
   year: string;
 };
+export type studentexam = {
+  id: number;
+  exam: {
+    id: number;
+    subject: string;
+    title: string;
+    duration: number;
+    published: boolean;
+    published_time: string;
+    ended: boolean;
+    create_time: string;
+  };
+  start_time: string;
+  end_time: string;
+  total_degree: string;
+  total_earn: string;
+};
+export type student = {
+  id: number;
+  username: string;
+  phone: string;
+  parent_phone: string;
+  year: string;
+  studentexam_set: studentexam[];
+};
