@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import {
-  GetStaticProps,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
 } from "next";
 import { ParsedUrlQuery } from "querystring";
 import EditStudentForm from "../../components/EditStudentForm";
@@ -11,18 +12,14 @@ import { FaUserCircle } from "react-icons/fa";
 import ExamCard from "../../components/ExamCard";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { student } from "../../types";
+import { student, studentexam } from "../../types";
 
 interface IdQuery extends ParsedUrlQuery {
   id: string;
 }
 const studentProfile = ({
   student,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  useEffect(() => {
-    console.log(student);
-  }, []);
-
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const [editStudent, setEditStudent] = useState(false);
   const deleteStudent = () => {
@@ -37,9 +34,13 @@ const studentProfile = ({
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete("https://eltahdy.herokuapp.com/api/students/7")
-          .then((res) => {
-            Swal.fire("تم الحذف", `تم حذف الطالب بنجاح`, "success");
+          .delete(`https://eltahdy.herokuapp.com/api/students/${student.id}`)
+          .then(() => {
+            Swal.fire(
+              "تم حذف الطالب",
+              `<b> ${student.username} </b>`,
+              "success"
+            );
             router.push("/findStudent");
           })
           .catch((error) => {
@@ -60,12 +61,14 @@ const studentProfile = ({
       ) : (
         <>
           <div className="flex justify-end ml-5 md:ml-10">
-            <button
-              type="button"
-              className="bg-color-4 w-fit px-7 py-1 text-2xl md:text-3xl text-color-2 rounded-lg text-center"
-            >
-              رجوع
-            </button>
+            <Link href="/findStudent">
+              <button
+                type="button"
+                className="bg-color-4 w-fit px-7 py-1 text-2xl md:text-3xl text-color-2 rounded-lg text-center"
+              >
+                رجوع
+              </button>
+            </Link>
           </div>
           <div className="flex flex-col items-center space-y-7">
             <div className="text-color-4 text-8xl md:text-[150px]">
@@ -97,12 +100,27 @@ const studentProfile = ({
             </div>
             {editStudent && <EditStudentForm />}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-              <ExamCard />
-              <ExamCard />
-              <ExamCard />
-              <ExamCard />
-              <ExamCard />
-              <ExamCard />
+              {student.studentexam_set.length > 0 ? (
+                student.studentexam_set.map(
+                  (studentexam: studentexam, index: number) => {
+                    return (
+                      <ExamCard
+                        key={index}
+                        id={studentexam.id}
+                        end_time={studentexam.end_time}
+                        exam={studentexam.exam}
+                        start_time={studentexam.start_time}
+                        total_degree={studentexam.total_degree}
+                        total_earn={studentexam.total_earn}
+                      />
+                    );
+                  }
+                )
+              ) : (
+                <h1 className="text-center text-4xl font-bold text-color-3">
+                  لا يوجد اي امتحان لهذا الطالب...
+                </h1>
+              )}
             </div>
           </div>
         </>
@@ -113,28 +131,57 @@ const studentProfile = ({
 
 export default studentProfile;
 
-export const getStaticPaths = async () => {
-  const res = await fetch("https://eltahdy.herokuapp.com/api/students/");
-  const students: student[] = await res.json();
-  const paths = students.map((student) => {
-    return { params: { id: student.id.toString() } };
-  });
-  return {
-    paths,
-    fallback: true,
-  };
-};
-export const getStaticProps: GetStaticProps = async (
-  ctx: GetStaticPropsContext
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
 ) => {
   const { id } = ctx.params as IdQuery;
   const res = await fetch(`https://eltahdy.herokuapp.com/api/students/${id}/`);
   const student: student = await res.json();
 
+  if (student.id === undefined) {
+    return {
+      redirect: {
+        destination: "/findStudent",
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {
       student,
-      revalidate: 1,
     },
   };
 };
+// export const getStaticPaths = async () => {
+//   const res = await fetch("https://eltahdy.herokuapp.com/api/students/");
+//   const students: student[] = await res.json();
+//   const paths = students.map((student) => {
+//     return { params: { id: student.id.toString() } };
+//   });
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
+// export const getStaticProps: GetStaticProps = async (
+//   ctx: GetStaticPropsContext
+// ) => {
+//   const { id } = ctx.params as IdQuery;
+//   const res = await fetch(`https://eltahdy.herokuapp.com/api/students/${id}/`);
+//   const student: student = await res.json();
+
+//   // if (student.id === undefined) {
+//   //   return {
+//   //     redirect: {
+//   //       destination: "/findStudent",
+//   //       permanent: false,
+//   //     },
+//   //   };
+//   // }
+//   return {
+//     props: {
+//       student,
+//     },
+//     revalidate: 1,
+//   };
+// };
