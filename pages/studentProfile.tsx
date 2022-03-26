@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import EditStudentForm from "../components/EditStudentForm";
 import { FaUserCircle } from "react-icons/fa";
 import ExamCard from "../components/ExamCard";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { student } from "../types";
 const studentProfile = () => {
   const router = useRouter();
   const [editStudent, setEditStudent] = useState(false);
@@ -20,7 +22,7 @@ const studentProfile = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete("https://eltahdy.herokuapp.com/api/students/22")
+          .delete("https://eltahdy.herokuapp.com/api/students/9")
           .then((res) => {
             Swal.fire("تم الحذف", "تم حذف الطالب بنجاح", "success");
             router.push("/findStudent");
@@ -75,12 +77,12 @@ const studentProfile = () => {
         </div>
         {editStudent && <EditStudentForm />}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {/* <ExamCard />
           <ExamCard />
           <ExamCard />
           <ExamCard />
           <ExamCard />
-          <ExamCard />
-          <ExamCard />
+          <ExamCard /> */}
         </div>
       </div>
     </div>
@@ -88,3 +90,25 @@ const studentProfile = () => {
 };
 
 export default studentProfile;
+
+// export const getStaticPaths = async () => {
+//   const res = await fetch("https://eltahdy.herokuapp.com/api/students/");
+//   const students: student[] = await res.json();
+//   const paths = students.map((student) => {
+//     return { params: { id: student.id.toString() } };
+//   });
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// };
+// export const getStaticProps: GetStaticProps = async () => {
+//   const res = await fetch("https://eltahdy.herokuapp.com/api/students/8/");
+//   const student: student = await res.json();
+
+//   return {
+//     props: {
+//       student,
+//     },
+//   };
+// };
