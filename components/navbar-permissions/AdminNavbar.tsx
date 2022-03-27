@@ -104,7 +104,7 @@ const AdminNavbar = () => {
                       إضافة طالب
                     </li>
                   </Link>
-                  <Link href="/findStudent">
+                  <Link href="/students">
                     <li
                       className="pt-1 pr-2 hover:text-color-4 hover:cursor-pointer transition ease-in-out"
                       onClick={() => {
@@ -230,7 +230,7 @@ const AdminNavbar = () => {
                     إضافة طالب
                   </li>
                 </Link>
-                <Link href="/findStudent">
+                <Link href="/students">
                   <li
                     className="hover:text-cancel transition ease-in-out flex items-center"
                     onClick={() => {

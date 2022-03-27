@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { InferGetServerSidePropsType } from "next";
-import Header from "../components/Header";
-import StudentCard from "../components/StudentCard";
-import Pagination from "../components/Pagination";
-import { findStudentData, findStudent } from "../types";
-const findStudent = ({
+import Header from "../../components/Header";
+import StudentCard from "../../components/StudentCard";
+import Pagination from "../../components/Pagination";
+import { findStudentData, findStudent } from "../../types";
+const students = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [students, setStudent] = useState<findStudentData>(data);
@@ -127,4 +127,4 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default findStudent;
+export default students;
