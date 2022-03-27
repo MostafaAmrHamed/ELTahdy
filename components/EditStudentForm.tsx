@@ -53,7 +53,9 @@ const EditStudentForm: React.FC<editStudent> = (studentData) => {
             timer: 1500,
           });
           setValidate(false);
-          router.reload();
+          setTimeout(() => {
+            router.reload();
+          }, 1000);
         })
         .catch((error) => {
           Swal.fire({
