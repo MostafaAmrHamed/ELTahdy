@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import Validate from "../components/Validation";
 import {
@@ -9,15 +10,17 @@ import {
 import { editStudent } from "../types";
 import axios from "axios";
 
-const EditStudentForm = () => {
+const EditStudentForm: React.FC<editStudent> = (studentData) => {
+  const router = useRouter();
   const [validate, setValidate] = useState(false);
   const [student, setStudent] = useState<editStudent>({
+    id: studentData.id,
     user: {
-      username: "",
+      username: studentData.user.username,
     },
-    phone: "",
-    parent_phone: "",
-    year: "",
+    phone: studentData.phone,
+    parent_phone: studentData.parent_phone,
+    year: studentData.year,
   });
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -36,7 +39,10 @@ const EditStudentForm = () => {
       setValidate(true);
     } else {
       axios
-        .put("https://eltahdy.herokuapp.com/api/students/7/", student)
+        .put(
+          `https://eltahdy.herokuapp.com/api/students/${studentData.id}/`,
+          student
+        )
         .then(() => {
           Swal.fire({
             position: "center",
@@ -47,6 +53,7 @@ const EditStudentForm = () => {
             timer: 1500,
           });
           setValidate(false);
+          router.reload();
         })
         .catch((error) => {
           Swal.fire({
@@ -60,10 +67,13 @@ const EditStudentForm = () => {
   };
   const recoverData = () => {
     setStudent({
-      user: { username: "" },
-      phone: "",
-      parent_phone: "",
-      year: "",
+      id: studentData.id,
+      user: {
+        username: studentData.user.username,
+      },
+      phone: studentData.phone,
+      parent_phone: studentData.parent_phone,
+      year: studentData.year,
     });
     setValidate(false);
   };
@@ -166,13 +176,13 @@ const EditStudentForm = () => {
         <div className="flex flex-col mt-5 items-center md:flex-row gap-5 justify-center">
           <button
             type="submit"
-            className="bg-true w-fit px-7 py-1 text-3xl text-color-2 rounded-lg"
+            className="bg-true w-[140px] py-1 text-2xl text-color-2 rounded-lg"
           >
-            تسجـيـل
+            حفظ
           </button>
           <button
             type="button"
-            className="bg-cancel w-fit px-7 py-1 text-3xl text-color-2 rounded-lg"
+            className="bg-cancel w-[140px] py-1 text-2xl text-color-2 rounded-lg"
             onClick={recoverData}
           >
             إسترجاع

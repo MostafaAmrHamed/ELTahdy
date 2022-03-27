@@ -98,7 +98,15 @@ const studentProfile = ({
                 حـذف
               </button>
             </div>
-            {editStudent && <EditStudentForm />}
+            {editStudent && (
+              <EditStudentForm
+                id={student.id}
+                user={{ username: student.username }}
+                parent_phone={student.parent_phone}
+                phone={student.phone}
+                year={student.year}
+              />
+            )}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
               {student.studentexam_set.length > 0 ? (
                 student.studentexam_set.map(

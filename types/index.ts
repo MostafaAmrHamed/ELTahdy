@@ -48,6 +48,7 @@ export type findStudentData = {
   year: string;
 }[];
 export type editStudent = {
+  id: number;
   user: {
     username: string;
   };
